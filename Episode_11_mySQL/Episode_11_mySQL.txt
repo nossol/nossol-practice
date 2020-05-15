@@ -1,0 +1,95 @@
+C:\Program Files\cmder
+λ mysql -u root -p
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 16
+Server version: 8.0.20 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2020, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> create table mytodo;
+    
+ERROR 1046 (3D000): No database selected
+mysql> create database mytodo;
+Query OK, 1 row affected (0.05 sec)
+
+mysql> show databases;
+
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| mytodo             |
+| performance_schema |
+| sys                |
++--------------------+
+5 rows in set (0.00 sec)
+
+mysql> use mytodo;
+Database changed
+mysql> create table todos (description text, completed boolean);
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> show tables;
+
++------------------+
+| Tables_in_mytodo |
++------------------+
+| todos            |
++------------------+
+1 row in set (0.02 sec)
+
+mysql> describe todos;
++-------------+------------+------+-----+---------+-------+
+| Field       | Type       | Null | Key | Default | Extra |
++-------------+------------+------+-----+---------+-------+
+| description | text       | YES  |     | NULL    |       |
+| completed   | tinyint(1) | YES  |     | NULL    |       |
++-------------+------------+------+-----+---------+-------+
+2 rows in set (0.01 sec)
+
+mysql> drop table todos;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> show tables;
+Empty set (0.00 sec)
+
+mysql> create table todos (id integer PRIMARY KEY AUTO_INCREMENT, description text NOT NULL, completed boolean NOT NULL);
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> show tables
+    -> ;
++------------------+
+| Tables_in_mytodo |
++------------------+
+| todos            |
++------------------+
+1 row in set (0.00 sec)
+
+mysql> describe todos;
++-------------+------------+------+-----+---------+----------------+
+| Field       | Type       | Null | Key | Default | Extra          |
++-------------+------------+------+-----+---------+----------------+
+| id          | int        | NO   | PRI | NULL    | auto_increment |
+| description | text       | NO   |     | NULL    |                |
+| completed   | tinyint(1) | NO   |     | NULL    |                |
++-------------+------------+------+-----+---------+----------------+
+3 rows in set (0.00 sec)
+
+mysql> insert into todos (description, completed) values('Go to the store', false);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from todos;
++----+-----------------+-----------+
+| id | description     | completed |
++----+-----------------+-----------+
+|  1 | Go to the store |         0 |
++----+-----------------+-----------+
+1 row in set (0.00 sec)
